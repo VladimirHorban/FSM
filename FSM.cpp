@@ -30,8 +30,7 @@ void FSM::removeFromFSM( int aIndex )
         else
             offset++;
     }
-//    mNodesVector->erase( mNodesVector->begin() + offset - 1 );
-      mNodesVector->erase( mNodesVector->begin() + offset );
+    mNodesVector->erase( mNodesVector->begin() + offset );
 }
 
 void FSM::addSignalTransitionCell( int aIndex, int aSignal, int aTransition )
@@ -42,13 +41,17 @@ void FSM::addSignalTransitionCell( int aIndex, int aSignal, int aTransition )
 
 void FSM::removeSignalTransitionCell( int aIndex, int aSignal, int aTransition )
 {
+    int offset = 0;
     for( SignalTransitionCell* cellIt : *mConversationTable )
     {
         if( cellIt->mNodeIndex == aIndex && cellIt->mSignal == aSignal && cellIt->mTransition == aTransition )
         {
             delete cellIt;
         }
+        else
+            offset++;
     }
+    mConversationTable->erase( mConversationTable->begin() + offset );
 }
 
 void FSM::setStartNode( const int aIndex )
