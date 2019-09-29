@@ -2,7 +2,7 @@
 
 FSM::FSM()
 {
-    mNodesVector = new std::vector<Node*>;
+    mNodesVector       = new std::vector<Node*>;
     mConversationTable = new std::vector<SignalTransitionCell*>;
 }
 
@@ -20,20 +20,18 @@ void FSM::addNodeToFSM( int aIndex, Func aFunc )
 
 void FSM::removeFromFSM( int aIndex )
 {
+    int offset = 0;
     for( Node* nodeIt : *mNodesVector )
     {
         if( nodeIt->mIndex == aIndex )
         {
             delete nodeIt;
         }
+        else
+            offset++;
     }
-//    for( std::vector<Node*>::iterator it = mNodesVector->begin(); it != mNodesVector->end(); ++it )
-//    {
-//        if( ( *it )->mIndex == aIndex )
-//        {
-//            mNodesVector->erase( it );
-//        }
-//    }
+//    mNodesVector->erase( mNodesVector->begin() + offset - 1 );
+      mNodesVector->erase( mNodesVector->begin() + offset );
 }
 
 void FSM::addSignalTransitionCell( int aIndex, int aSignal, int aTransition )
@@ -48,7 +46,7 @@ void FSM::removeSignalTransitionCell( int aIndex, int aSignal, int aTransition )
     {
         if( cellIt->mNodeIndex == aIndex && cellIt->mSignal == aSignal && cellIt->mTransition == aTransition )
         {
-            delete  cellIt;
+            delete cellIt;
         }
     }
 }
@@ -68,6 +66,7 @@ void FSM::action( int aSignal , void *aParam )
             {
                 if( cellIt->mNodeIndex == mCurrentNodeIndex && cellIt->mSignal == aSignal )
                 {
+                    mPrevNodeIndex    = mCurrentNodeIndex;
                     mCurrentNodeIndex = cellIt->mTransition;
                 }
             }
