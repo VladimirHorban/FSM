@@ -25,6 +25,17 @@ void FSM::removeFromFSM( int aIndex )
     {
         if( nodeIt->mIndex == aIndex )
         {
+            int cellOffset = 0;
+            for( SignalTransitionCell* cellIt : *mConversationTable )
+            {
+                if( cellIt->mNodeIndex == nodeIt->mIndex )
+                {
+                    delete cellIt;
+                    mConversationTable->erase( mConversationTable->begin() + cellOffset );
+                }
+                else
+                    cellOffset++;
+            }
             delete nodeIt;
         }
         else

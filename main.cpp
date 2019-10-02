@@ -45,7 +45,7 @@ int main()
     fsm.action( -1, ( void* )&param );
     fsm.action(  2, ( void* )&param );
     fsm.action(  0, ( void* )&param );
-    fsm.action(  0, ( void* )&param );
+    fsm.action(  1, ( void* )&param );
 
     fsm.removeFromFSM( 2 );
 

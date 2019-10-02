@@ -36,7 +36,7 @@ private:
     };
 
     std::vector<SignalTransitionCell*>* mConversationTable = nullptr;
-    std::vector<Node*>* mNodesVector                       = nullptr;
+    std::vector<Node*>*                 mNodesVector       = nullptr;
 
 public:
     FSM();
